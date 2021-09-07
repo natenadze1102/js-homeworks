@@ -19,9 +19,7 @@ function getDivisors(dividend) {
     const divisorsArr = [];
 
     while (divisor <= dividend) {
-      if (dividend % divisor === 0) {
-        divisorsArr.push(divisor);
-      }
+      dividend % divisor === 0 ? divisorsArr.push(divisor) : '';
       divisor++;
     }
 
