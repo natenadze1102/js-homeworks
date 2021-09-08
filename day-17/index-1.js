@@ -11,9 +11,9 @@ Now handle error and log message in console */
 function getDivisors(dividend) {
   try {
     if (typeof dividend !== 'number') {
-      throw new TypeError('Error: parameter type is not a Number');
+      throw new Error('parameter type is not a Number');
     } else if (dividend === 0) {
-      throw new Error(`Error: parameter can't be a 0`);
+      throw new Error(`parameter can't be a 0`);
     }
     let divisor = 1;
     const divisorsArr = [];
@@ -26,8 +26,8 @@ function getDivisors(dividend) {
     console.log(divisorsArr);
     return divisorsArr;
   } catch (e) {
-    console.log(e.message);
+    console.log(`${e.name}: ${e.message}`);
   }
 }
 
-getDivisors(12);
+getDivisors('12');

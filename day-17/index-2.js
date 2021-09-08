@@ -13,7 +13,6 @@ f(1,2,3) // Error: parameter type should be an array
 f('Content') // Error: parameter type should be an array
 f([]) // Error: parameter can't be an empty
 ```
-
 Now handle error and log message in console */
 
 function f(arr) {
@@ -26,6 +25,7 @@ function f(arr) {
 
     let spliced;
     console.log(arr[0]);
+
     if (arr.length > 1) {
       spliced = arr.splice(0, 1);
 
@@ -36,4 +36,4 @@ function f(arr) {
   }
 }
 
-f(2);
+f([1, 2, 3]);
