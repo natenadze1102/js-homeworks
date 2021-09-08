@@ -19,20 +19,21 @@ Now handle error and log message in console */
 function f(arr) {
   try {
     if (arr.length === 0) {
-      throw new Error(`Error: parameter can't be an empty`);
+      throw new Error(`parameter can't be an empty`);
     } else if (!Array.isArray(arr)) {
-      throw new TypeError('Error: parameter type should be an array');
+      throw new Error('parameter type should be an array');
     }
 
     let spliced;
-    if (arr.length >= 1) {
-      alert(arr[0]);
+    console.log(arr[0]);
+    if (arr.length > 1) {
       spliced = arr.splice(0, 1);
+
       return f(arr);
     }
   } catch (e) {
-    console.error(e.message);
+    console.error(`${e.name}: ${e.message}`);
   }
 }
 
-f([1, 2, 3]);
+f(2);
