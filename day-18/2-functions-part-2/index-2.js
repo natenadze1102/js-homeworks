@@ -13,19 +13,18 @@ compose((str) => {
 })('a'); // 'abc' */
 
 function compose(...functions) {
-  const arr = [];
+  let str = '';
 
   for (f of functions) {
     f();
   }
 
-  return function (str) {
+  return (str) => {
     for (let f of functions) {
-      arr.unshift(f(str));
+      str += f(str);
     }
 
-    return arr
-      .join('')
+    return str
       .split('')
       .filter((item, index, array) => array.indexOf(item) === index)
       .sort()
