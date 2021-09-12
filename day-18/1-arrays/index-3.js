@@ -22,7 +22,7 @@ rotate(arr, 2);  // result: [2,3,1]
 */
 const arr = [1, 2, 3];
 
-function rotate(arr, nTimes, rotateTo = 'left') {
+function rotate(arr, nTimes, rotateTo = 'right') {
   try {
     if (!Array.isArray(arr)) {
       throw new Error('first Parameter has to be array!');
@@ -51,4 +51,4 @@ function rotate(arr, nTimes, rotateTo = 'left') {
   }
 }
 
-console.log(rotate(arr, 1, 'right'));
+console.log(rotate(arr, 2));
