@@ -12,23 +12,19 @@ compose((str) => {
     return str + 'b';
 })('a'); // 'abc' */
 
-function compose(...functions) {
-  let str = '';
+function reverseString(str) {
+  return str.split('').reverse().join('');
+}
 
+function compose(...functions) {
+  let string = '';
+  let f;
   for (f of functions) {
-    f();
+    string += f((string = ''));
   }
 
-  return (str) => {
-    for (let f of functions) {
-      str += f(str);
-    }
-
-    return str
-      .split('')
-      .filter((item, index, array) => array.indexOf(item) === index)
-      .sort()
-      .join('');
+  return function (str) {
+    return reverseString(string + str);
   };
 }
 
