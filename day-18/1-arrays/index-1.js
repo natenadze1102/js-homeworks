@@ -1,16 +1,10 @@
 /* #### Task 1
-
 Create function `f`. This function gets one parameter: one dimensional or multidimensional array. This function returns the sum of all elements from all dimensions.
-
 Note that the function should return the 0, if during the calculation of all levels (dimensions) no number was found.
-
 Function should contain current checks:
-
 - First parameter required and has to be only array
 - Throw error if on any dimension (level) you found not a number or not a array
-
 - using flat, flatMap is not allowed
-
 javascript
 const arr = [[[1, 2], [1, 2]], [[2, 1], [1, 2]]];
 f(arr); // 12
@@ -24,14 +18,28 @@ const arr5 = [[[[[],3]]]];
 f(arr5); // 3
 */
 
-/* const arr = [[1], 1]; */
-const arr = [[[[[], 3]]]];
+const arr = [
+  [
+    ['2', 2],
+    [1, 2],
+  ],
+  [
+    [2, 1],
+    [1, 2],
+  ],
+];
 
 function flatten(arr) {
   try {
     return arr
       .reduce(
         function (acc, current, index) {
+          if (!Array.isArray(current)) {
+            throw new Error('not an array');
+          } else if (typeof current[index] !== 'number') {
+            throw new Error('not a number');
+          }
+
           if (Array.isArray(current)) {
             return acc.concat(flatten(current));
           }
@@ -41,7 +49,7 @@ function flatten(arr) {
       )
       .reduce((a, b) => a + b);
   } catch (e) {
-    console.log(e);
+    console.error(`${e.name}: ${e.message}`);
   }
 }
 
