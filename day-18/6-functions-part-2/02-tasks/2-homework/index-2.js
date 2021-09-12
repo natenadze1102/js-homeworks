@@ -21,7 +21,7 @@ function compose(...functions) {
 
   return function (str) {
     for (let f of functions) {
-      arr.push(f(str));
+      arr.unshift(f(str));
     }
 
     return arr
@@ -37,9 +37,6 @@ console.log(
   compose(
     (str) => {
       return str + 'c';
-    },
-    (str) => {
-      return str + 'b';
     },
     (str) => {
       return str + 'b';
