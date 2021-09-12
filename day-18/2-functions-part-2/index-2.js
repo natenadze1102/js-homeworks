@@ -18,8 +18,7 @@ function reverseString(str) {
 
 function compose(...functions) {
   let string = '';
-  let f;
-  for (f of functions) {
+  for (let f of functions) {
     string += f((string = ''));
   }
 
