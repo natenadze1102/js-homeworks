@@ -34,20 +34,23 @@ var Books = [
 ];
 
 function readingStatus(Books) {
+  let date1;
+  let date2 = new Date();
+
   Books.forEach((item) => {
+    date1 = item.dateOfRead;
+    let days = Math.ceil((date2 - date1) / 1000 / 60 / 60 / 24);
+
+    Object.defineProperty(item, 'daysAgo', {
+      get: function daysAgo() {
+        return `${days}`;
+      },
+    });
     let read = item.haveRead
-      ? `have read ${item.title} book`
+      ? `have read ${item.title} book ${item.daysAgo} days ago`
       : `haven't read ${item.title} book yet`;
     console.log(`${item.author} ${read}`);
   });
 }
 
 readingStatus(Books);
-let date1 = new Date(2020, 10, 5);
-console.log(date1);
-let date2 = new Date();
-let diff = date2 - date1;
-
-let days = Math.ceil(diff / 1000 / 60 / 60 / 24);
-
-console.log(days);
