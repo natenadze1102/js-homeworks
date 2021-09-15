@@ -12,18 +12,14 @@ compose((str) => {
     return str + 'b';
 })('a'); // 'abc' */
 
-function reverseString(str) {
-  return str.split('').reverse().join('');
-}
-
 function compose(...functions) {
   let string = '';
-  for (let f of functions) {
-    string += f((string = ''));
+  for (let i = functions.length - 1; i >= 0; i --) {
+    string += functions[i]((string = ''));
   }
 
   return function (str) {
-    return reverseString(string + str);
+    return str + string
   };
 }
 
