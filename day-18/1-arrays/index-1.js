@@ -18,25 +18,16 @@ const arr5 = [[[[[],3]]]];
 f(arr5); // 3
 */
 
-const arr = [
-  [
-    ['2', 2],
-    [1, 2],
-  ],
-  [
-    [2, 1],
-    [1, 2],
-  ],
-];
+const arr = [[[[[], 3]]]];
 
 function flatten(arr) {
   try {
     return arr
       .reduce(
         function (acc, current, index) {
-          if (!Array.isArray(current)) {
+          if (!Array.isArray(acc)) {
             throw new Error('not an array');
-          } else if (typeof current[index] !== 'number') {
+          } else if (typeof acc[index] !== 'number') {
             throw new Error('not a number');
           }
 

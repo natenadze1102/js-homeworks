@@ -14,7 +14,7 @@ const arr = [3,2,1];
 reverse(arr); // [1,2,3]
  */
 
-const arr = [];
+const arr = [3, 2, 1];
 
 function reverse(array) {
   try {
