@@ -22,10 +22,10 @@ function searchWord(str, checker) {
       .forEach((a) => {
         checker == a ? counter++ : '';
       });
-    return `${checker} was found ${counter} times`;
+    return `'${checker}' was found ${counter} times`;
   } catch (e) {
     console.log(e);
   }
 }
 
-console.log(searchWord(str, checker));
+console.log(searchWord('The quick brown fox', 'fox'));

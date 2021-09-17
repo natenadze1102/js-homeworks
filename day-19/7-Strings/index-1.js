@@ -24,4 +24,4 @@ function rmHtmlTags(str) {
   }
 }
 
-console.log(rmHtmlTags(2));
+console.log(rmHtmlTags(str));
