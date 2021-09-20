@@ -45,5 +45,6 @@ data.mergeDeepRight({
     },
   },
 });
+Object.fromEntries(Object.entries(data.contact).sort((a, b) => (b[1] = a[1])));
 
 console.log(data);
