@@ -46,6 +46,7 @@ function readingStatus(Books) {
         return `${days}`;
       },
     });
+
     let read = item.haveRead
       ? `have read ${item.title} book ${item.daysAgo} days ago`
       : `haven't read ${item.title} book yet`;
