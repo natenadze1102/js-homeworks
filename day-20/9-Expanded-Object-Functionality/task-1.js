@@ -15,8 +15,6 @@ const data = {
 Object.defineProperty(Object.prototype, 'mergeDeepRight', {
   value: function (obj) {
     for (let prop in obj) {
-      if (typeof obj[prop] === 'function') return;
-
       if (Array.isArray(obj[prop])) {
         if (prop in this) {
           this[prop] = obj[prop].concat(this[prop]);
