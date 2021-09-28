@@ -17,6 +17,7 @@ Object.defineProperty(Object.prototype, 'mergeDeepRight', {
     for (let prop in obj) {
       if (Array.isArray(obj[prop])) {
         if (prop in this) {
+          console.log(prop);
           this[prop] = obj[prop].concat(this[prop]);
         } else {
           this[prop] = obj[prop];

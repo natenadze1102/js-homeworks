@@ -17,7 +17,7 @@ extractCurrencyValue('$120'); // 120
 const currencyValue = '$120';
 function extractCurrencyValue(source) {
   try {
-    if (typeof str !== 'string') {
+    if (typeof source !== 'string') {
       throw new Error(`Parameter isn't string`);
     }
     return +source.replace(/[\W]/, '');
