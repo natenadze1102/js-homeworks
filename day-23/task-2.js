@@ -59,6 +59,7 @@ class DB {
   }
 
   find(query) {
+    if (typeof query != 'object') throw new Error('Query is not valid');
     return customers.filter((arr) => {
       return (
         arr.name === query.name &&
@@ -86,14 +87,14 @@ const person1 = {
 const person2 = {
   name: 'Gio', // required field with type string
   age: 22, // required field with type number
-  country: 'uk', // required field with type string
+  country: 'ua', // required field with type string
   salary: 450, // required field with type number
 };
 
 const person3 = {
-  name: 'Dato', // required field with type string
+  name: 'Pitter', // required field with type string
   age: 29, // required field with type number
-  country: 'ge', // required field with type string
+  country: 'ua', // required field with type string
   salary: 4000, // required field with type number
 };
 
@@ -119,11 +120,11 @@ const query = {
   country: 'ua',
   name: 'Pitter',
   age: {
-    min: 21,
-    max: 29,
+    min: 0,
+    max: 35,
   },
   salary: {
-    min: 300,
+    min: 500,
     max: 9000,
   },
 };
