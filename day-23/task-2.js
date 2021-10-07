@@ -1,25 +1,5 @@
-/* Improve `DB` class from previous task.
-
-- Add a `find` method that will return an array of users that satisfy the condition passed as a parameter.
-- Generate an error if the `query` is not valid.
-- The fields `name` and` country` are looking for a 100% match.
-- The fields `age` and` salary` accept an object in which there must be either 2 parameters `min` and` max` or at least one of them.
-- Return an empty array if it was not possible to find users that satisfy the request object.
-
-```javascript
-const query = {
-    country: 'ua',
-    age: {
-        min: 21
-    },
-    salary: {
-        min: 300,
-        max: 600
-    }
-};
-const customers = db.find(query); // array of users */
 class DB {
-  users = new Map();
+  customers = new Map();
   gen = function () {
     return '_' + Math.random().toString(36).substr(2, 9);
   };
@@ -30,7 +10,7 @@ class DB {
       throw new Error('Parameter type must be an Object');
 
     let randomIdGenerator = this.gen();
-    this.users.set(randomIdGenerator, obj).forEach((_, key) => {
+    this.customers.set(randomIdGenerator, obj).forEach((_, key) => {
       this.unicKey = key;
     });
 
@@ -38,115 +18,115 @@ class DB {
   }
 
   read(id) {
-    if (!this.users.has(id)) throw new Error('no such users');
-    if (!id) throw new Error('Parameter must not be empty!');
-    if (typeof id !== 'string')
+    if (!arguments.length) {
+      throw new Error('Parameter must not be empty!');
+    } else if (typeof id != 'string') {
       throw new Error('Parameter type must be a String');
+    } else if (!this.customers.has(id)) {
+      return null;
+    }
 
-    let currentCollection = Array.from(this.users.entries()).filter(
-      (x, y, z) => x[0] === id
+    let currentCollection = Array.from(this.customers.entries()).filter(
+      (collection) => collection[0] === id
     );
     return Object.fromEntries(new Map(currentCollection));
   }
 
   readAll() {
     if (arguments.length) throw new Error('Using parameters is forbidden');
-    return [...this.users.values()];
+    return [...this.customers.values()];
   }
 
   update(id, obj) {
     if (arguments.length !== 2) {
       throw new Error('2 arguments are required to use');
-    } else if (!this.users.has(id)) {
+    } else if (!this.customers.has(id)) {
       throw new Error('non-existing id is passed');
     } else if (typeof id !== 'string') {
       throw new Error('id type has to be a string');
     }
 
     for (let [key, value] of Object.entries(obj)) {
-      this.users.get(id)[key] = value;
+      this.customers.get(id)[key] = value;
     }
-    return this.users.get(id);
+    return this.customers.get(id);
   }
 
   delete(id) {
-    if (!id || !this.users.has(id))
+    if (!id || !this.customers.has(id))
       throw new Error('non-existent or invalid id');
-    return this.users.delete(id);
+    return this.customers.delete(id);
   }
 
-  find(query) {}
+  find(query) {
+    return customers.filter((arr) => {
+      return (
+        arr.name === query.name &&
+        arr.country === query.country &&
+        ((arr.age >= query.age.min && arr.age <= query.age.max) ||
+          (arr.age >= query.age.min && !query.age.max) ||
+          (arr.age <= query.age.max && !query.age.min)) &&
+        ((arr.salary >= query.salary.min && arr.salary <= query.salary.max) ||
+          (arr.salary >= query.salary.min && !query.salary.max) ||
+          (arr.salary <= query.salary.max && !query.salary.min))
+      );
+    });
+  }
 }
 
 const db = new DB();
 
-const person = {
+const person1 = {
   name: 'Pitter', // required field with type string
   age: 21, // required field with type number
-  country: 'ge', // required field with type string
+  country: 'ua', // required field with type string
   salary: 500, // required field with type number
 };
 
-const person1 = {
+const person2 = {
   name: 'Gio', // required field with type string
   age: 22, // required field with type number
   country: 'uk', // required field with type string
   salary: 450, // required field with type number
 };
 
-const person2 = {
+const person3 = {
   name: 'Dato', // required field with type string
   age: 29, // required field with type number
   country: 'ge', // required field with type string
   salary: 4000, // required field with type number
 };
 
-const id = db.create(person);
+const person4 = {
+  name: 'Guram', // required field with type string
+  age: 18, // required field with type number
+  country: 'en', // required field with type string
+  salary: 490, // required field with type number
+};
+
 const id1 = db.create(person1);
-const id2 = db.create(person1);
+const id2 = db.create(person2);
+const id3 = db.create(person3);
+const id4 = db.create(person4);
 
-const customer = db.read(id);
-const customer2 = db.read(id1);
-const customer3 = db.read(id1);
-
-//db.update(id, { age: 25, name: 'Pat', country: 'ru' }); // id
-// db.delete(id); // true
+const customer = db.read(id1);
+const customer2 = db.read(id2);
+const customer3 = db.read(id3);
 
 const customers = db.readAll();
 
 const query = {
   country: 'ua',
+  name: 'Pitter',
   age: {
     min: 21,
+    max: 29,
   },
   salary: {
     min: 300,
-    max: 600,
+    max: 9000,
   },
 };
-customers.filter((elem, index, array) => {
-  console.log(elem);
-  function iterate(obj) {
-    for (var prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        if (elem.hasOwnProperty(prop)) console.log(prop + '!');
-        if (typeof obj[prop] == 'object') {
-          /* iterate(obj[prop]); */
-          return obj[prop].min < elem[prop];
-        } else {
-          /* console.log(` ${prop} ${obj[prop]}`); */
-        }
-      }
-    }
-  }
 
-  console.log(iterate(query));
-});
-
-/* let map = new Map(Object.entries(query));
-console.log(
-  map.entries().forEach(function (a, b, c) {
-    console.log(a);
-  })
-);
- */
+const filtered = db.find(query);
+console.log(filtered);
